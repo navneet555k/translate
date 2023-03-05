@@ -1,0 +1,46 @@
+body{
+    background-image: url(../images/Capture.PNG);
+    background-repeat: none;
+    background-size: cover;
+}
+.container {
+    display: flex; /* use flexbox layout */
+    align-items: center; /* vertically center elements */
+    justify-content: center; /* horizontally center elements */
+    margin-top: 50px; /* add some margin to the top */
+}
+
+.container {
+    margin-left: 35%;
+    width: 400px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    font-size: 20px
+  }
+h1{
+    color: white;
+    background-color: crimson;
+    font-family: 'Nunito', sans-serif;
+}
+.my-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 46%;
+    margin-top: 20px;
+  }
+  
+  .my-button:hover {
+    background-color: #3e8e41;
+  }
+  

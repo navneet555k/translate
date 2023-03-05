@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Detect</title>
+	<meta charset="UTF-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/page.css">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;500;800;1000&display=swap" rel="stylesheet">
+</head>
+<body>
+	<h1><center>Auto Language Detection And Translation</center></h1>
+	<input type="text" id="textbox1" placeholder="Enter text to translate" class="container">
+	<input type="text" id="textbox2" placeholder="Translated text will appear here" readonly class="container">
+	<button onclick="copyToClipboard()" class="my-button">Copy</button>
+	
+	<script type="text/javascript">
+		function copyToClipboard() {
+			var copyText = document.getElementById("textbox2");
+			copyText.select();
+			document.execCommand("copy");
+		}
+
+		function translateText() {
+			// get the input text from Text Box 1
+			var inputText = document.getElementById("textbox1").value;
+			
+			// detect the language of the input text using the Google Translate API
+			$.ajax({
+				url: "https://translation.googleapis.com/language/translate/v2/detect?key=AIzaSyC0cXnnk6c8w_DrXY_cC2dcDXIsOr62jbI",
+				method: "POST",
+				data: {
+					q: inputText,
+				},
+				success: function(response) {
+					var detectedLanguage = response.data.detections[0][0].language;
+					
+					// translate the input text to English using the Google Translate API
+					$.ajax({
+						url: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyC0cXnnk6c8w_DrXY_cC2dcDXIsOr62jbI",
+						method: "POST",
+						data: {
+							q: inputText,
+							target: "en",
+							source: detectedLanguage,
+						},
+						success: function(response) {
+							var translatedText = response.data.translations[0].translatedText;
+							
+							// display the translated text in Text Box 2
+							document.getElementById("textbox2").value = translatedText;
+						}
+					});
+				}
+			});
+		}
+		
+		// call the translateText() function whenever the input text in Text Box 1 changes
+		$("#textbox1").on("input", function() {
+			translateText();
+		});
+	</script>
+</body>
+</html>
